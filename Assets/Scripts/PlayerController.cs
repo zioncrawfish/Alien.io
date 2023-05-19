@@ -5,30 +5,31 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
-    public float rotationOffset = 270;
+    public float rotationOffset = 270f;
 
-    // Update is called once per frame
-    void Update()
+    private Rigidbody2D rb;
+
+    private void Awake()
     {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = 0;
-        Vector3 objectPosition = Camera.main.WorldToScreenPoint(transform.position);
-        mousePosition.x -= objectPosition.x;
-        mousePosition.y -= objectPosition.y;
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-        float angle = Mathf.Atan2(mousePosition.y, mousePosition.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + rotationOffset));
-
-        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        targetPosition.z = 0;
+    private void FixedUpdate()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Calculate the direction from the current position to the target position
-        Vector3 direction = targetPosition - transform.position;
+        Vector2 direction = mousePosition - rb.position;
 
         // Normalize the direction vector to ensure constant speed
         direction.Normalize();
 
-        // Move the player towards the target position with the desired speed
-        transform.position += direction * speed * Time.deltaTime;
+        // Rotate the player towards the mouse position
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        rb.rotation = angle + rotationOffset;
+
+        // Apply movement using Rigidbody2D velocity
+        rb.velocity = direction * speed;
     }
 }
+

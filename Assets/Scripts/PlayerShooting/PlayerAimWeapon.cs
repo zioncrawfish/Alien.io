@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aimTransform;
+    private MuzzleFlash muzzleFlash;
 
     private void Awake()
     {
         aimTransform = transform.Find("Aim");
+        muzzleFlash = GetComponentInChildren<MuzzleFlash>();
     }
 
     private void Update()
@@ -28,10 +28,15 @@ public class PlayerAimWeapon : MonoBehaviour
 
         // Print the angle for debugging purposes
         Debug.Log(angle);
+
+        // Check for input to trigger muzzle flash
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Trigger the muzzle flash
+            muzzleFlash.PlayMuzzleFlash();
+        }
     }
 }
-
-
 
 
 
