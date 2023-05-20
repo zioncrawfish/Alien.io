@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8156195281246306519}
   - component: {fileID: 1898874507791618043}
   - component: {fileID: -3036333808801449739}
-  - component: {fileID: 7158159731755151843}
   - component: {fileID: -3145537171221076765}
   - component: {fileID: 3462513489544390211}
+  - component: {fileID: 7394102243699931682}
   m_Layer: 0
   m_Name: Alien2
   m_TagString: Alien2
@@ -98,6 +98,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -114,27 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &7158159731755151843
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3302771730716823522}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.4
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &-3145537171221076765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,8 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  speed: 3
-  movementOffset: 1
+  speed: 1
 --- !u!114 &3462513489544390211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +156,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3302771730716823522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56ba2f3dfadf71843aafd1d34b7b562c, type: 3}
+  m_Script: {fileID: 11500000, guid: 04517f08518939849a01293f574c4763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alienDamagePercentage: 0.25
+  alienDamagePercentage: 15
+--- !u!114 &7394102243699931682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3302771730716823522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675200620b9ca0c45921db27ebf343c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHits: 2

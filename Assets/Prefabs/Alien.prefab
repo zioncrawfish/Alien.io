@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9161850880933527809}
   - component: {fileID: 5087597164115543150}
   - component: {fileID: 2109330375805353557}
-  - component: {fileID: 2130473188343691810}
   - component: {fileID: 7070995450179519160}
   - component: {fileID: 7596427180795058872}
+  - component: {fileID: 7212980345277919964}
   m_Layer: 0
   m_Name: Alien
   m_TagString: Alien
@@ -101,29 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  speed: 3
-  movementOffset: 1
---- !u!50 &2130473188343691810
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4649438570003345016}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.4
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  speed: 1
 --- !u!61 &7070995450179519160
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,6 +112,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -162,4 +159,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04517f08518939849a01293f574c4763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alienDamagePercentage: 0.1
+  alienDamagePercentage: 10
+--- !u!114 &7212980345277919964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4649438570003345016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675200620b9ca0c45921db27ebf343c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHits: 1

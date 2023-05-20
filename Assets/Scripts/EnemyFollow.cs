@@ -6,7 +6,6 @@ public class EnemyFollow : MonoBehaviour
     public float speed = 2f; // Adjust the speed value to control the movement speed of enemies
 
     private Transform player;
-    private Rigidbody2D rb;
 
     private void Start()
     {
@@ -15,8 +14,6 @@ public class EnemyFollow : MonoBehaviour
         {
             player = playerObject.transform;
         }
-
-        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -26,7 +23,7 @@ public class EnemyFollow : MonoBehaviour
             Vector3 direction = player.position - transform.position;
 
             // Move towards the player
-            rb.velocity = direction.normalized * speed;
+            transform.position += direction.normalized * speed * Time.deltaTime;
 
             // Face the player
             Vector2 directionToPlayer = (player.position - transform.position).normalized;
