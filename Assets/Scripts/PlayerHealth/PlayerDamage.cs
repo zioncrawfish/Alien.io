@@ -11,28 +11,36 @@ public class PlayerDamage : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Alien"))
+        if (collision.gameObject.CompareTag("Alien") || collision.gameObject.CompareTag("Alien1") ||
+            collision.gameObject.CompareTag("Alien2") || collision.gameObject.CompareTag("Alien3"))
         {
-            playerHealth.TakeDamage(Mathf.RoundToInt(playerHealth.maxHealth * 0.1f)); // Deduct 10% damage
-        }
-        else if (collision.gameObject.CompareTag("Alien1"))
-        {
-            playerHealth.TakeDamage(Mathf.RoundToInt(playerHealth.maxHealth * 0.1f)); // Deduct 10% damage
-        }
-        else if (collision.gameObject.CompareTag("Alien2"))
-        {
-            playerHealth.TakeDamage(Mathf.RoundToInt(playerHealth.maxHealth * 0.25f)); // Deduct 25% damage
-        }
-        else if (collision.gameObject.CompareTag("Alien3"))
-        {
-            playerHealth.TakeDamage(Mathf.RoundToInt(playerHealth.maxHealth * 0.25f)); // Deduct 25% damage
+            int damage = GetAlienDamageAmount(collision.gameObject);
+            playerHealth.TakeDamage(damage);
         }
     }
+
+    private int GetAlienDamageAmount(GameObject alien)
+    {
+        int damageAmount = 0;
+
+        // Set the damage amount based on the specific alien prefab
+        if (alien.CompareTag("Alien"))
+        {
+            damageAmount = 10;
+        }
+        else if (alien.CompareTag("Alien1"))
+        {
+            damageAmount = 15;
+        }
+        else if (alien.CompareTag("Alien2"))
+        {
+            damageAmount = 20;
+        }
+        else if (alien.CompareTag("Alien3"))
+        {
+            damageAmount = 25;
+        }
+
+        return damageAmount;
+    }
 }
-
-
-
-
-
-
-

@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8730211716930210180}
   - component: {fileID: 8632616547953088483}
   - component: {fileID: 8961836638038952031}
-  - component: {fileID: 5893217197580397916}
   - component: {fileID: 5739965486583510030}
   - component: {fileID: 7368859141491365471}
+  - component: {fileID: 1261141911568546432}
+  - component: {fileID: -5196560995998952181}
   m_Layer: 0
   m_Name: Alien1
   m_TagString: Alien1
@@ -100,21 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f52139cdb4d39347bb6dde876e95def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTag: Player
-  speed: 1
---- !u!114 &5893217197580397916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4440682160276526380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04517f08518939849a01293f574c4763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alienDamagePercentage: 20
+  moveSpeed: 1.7
 --- !u!114 &5739965486583510030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 1
+  currentHits: 0
 --- !u!58 &7368859141491365471
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -163,3 +151,43 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00089188624}
   serializedVersion: 2
   m_Radius: 0.22943276
+--- !u!50 &1261141911568546432
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4440682160276526380}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!114 &-5196560995998952181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4440682160276526380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f369445a4f784c4688bd84f50122226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10

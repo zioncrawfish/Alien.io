@@ -5,63 +5,77 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] enemyPrefabs;
+    private GameObject[] alienPrefabs;
 
-    [SerializeField]
-    private float[] enemyIntervals;
+    public int initialAlienCount = 25;
+    public float spawnInterval = 3f;
+    public int maxAlienCount = 100;
+    public float minSpawnDistance = 10f;
+    public float maxSpawnDistance = 30f;
 
     private Camera mainCamera;
-    private List<Vector3> spawnPoints = new List<Vector3>(); // List to store available spawn points
+    private Transform playerTransform;
+    private List<GameObject> activeAliens = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
+        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        // Calculate the available spawn points
-        CalculateSpawnPoints();
+        SpawnInitialAliens();
+        StartCoroutine(SpawnAliens());
+    }
 
-        for (int i = 0; i < enemyPrefabs.Length; i++)
+    private void SpawnInitialAliens()
+    {
+        for (int i = 0; i < initialAlienCount; i++)
         {
-            StartCoroutine(SpawnEnemy(enemyIntervals[i], enemyPrefabs[i]));
+            SpawnAlien();
         }
     }
 
-    private IEnumerator SpawnEnemy(float interval, GameObject enemyPrefab)
+    private IEnumerator SpawnAliens()
     {
         while (true)
         {
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(spawnInterval);
 
-            if (spawnPoints.Count > 0)
+            if (activeAliens.Count < maxAlienCount)
             {
-                // Randomly select a spawn point
-                int randomIndex = Random.Range(0, spawnPoints.Count);
-                Vector3 spawnPosition = spawnPoints[randomIndex];
-                spawnPoints.RemoveAt(randomIndex); // Remove the selected spawn point from the list
-
-                Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+                SpawnAlien();
             }
         }
     }
 
-    private void CalculateSpawnPoints()
+    private void SpawnAlien()
     {
-        float cameraHeight = 2f * mainCamera.orthographicSize;
-        float cameraWidth = cameraHeight * mainCamera.aspect;
+        Vector2 spawnPosition = GetRandomSpawnPosition();
+        GameObject alienPrefab = GetRandomAlienPrefab();
 
-        Vector3 cameraPosition = mainCamera.transform.position;
+        GameObject alienInstance = Instantiate(alienPrefab, spawnPosition, Quaternion.identity);
+        activeAliens.Add(alienInstance);
+    }
 
-        // Calculate the number of spawn points based on camera size
-        int numSpawnPoints = Mathf.RoundToInt(cameraWidth) + Mathf.RoundToInt(cameraHeight);
-
-        for (int i = 0; i < numSpawnPoints; i++)
+    private Vector2 GetRandomSpawnPosition()
+    {
+        if (playerTransform == null)
         {
-            float spawnX = Random.Range(-cameraWidth / 2f, cameraWidth / 2f);
-            float spawnY = Random.Range(-cameraHeight / 2f, cameraHeight / 2f);
-
-            Vector3 spawnPosition = new Vector3(spawnX + cameraPosition.x, spawnY + cameraPosition.y, 0f);
-            spawnPoints.Add(spawnPosition);
+            Debug.LogError("Player transform not found.");
+            return Vector2.zero;
         }
+
+        Vector2 playerPosition = playerTransform.position;
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        float randomDistance = Random.Range(minSpawnDistance, maxSpawnDistance);
+        Vector2 spawnPosition = playerPosition + randomDirection * randomDistance;
+
+        return spawnPosition;
+    }
+
+    private GameObject GetRandomAlienPrefab()
+    {
+        int randomIndex = Random.Range(0, alienPrefabs.Length);
+        return alienPrefabs[randomIndex];
     }
 }

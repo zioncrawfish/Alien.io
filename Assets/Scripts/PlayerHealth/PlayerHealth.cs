@@ -1,52 +1,47 @@
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100; // Maximum health value
-    private int currentHealth; // Current health value
+    public float maxHealth = 100f;
+    public float currentHealth;
+    public UnityAction OnPlayerDeath;
 
-    public HealthBarBehaviour healthBar; // Reference to the health bar behavior script
+    private HealthBarBehaviour healthBar;
 
     private void Start()
     {
-        currentHealth = maxHealth; // Set the current health to maximum health on start
-
-        // Update the health bar appearance
-        UpdateHealthBar();
+        currentHealth = maxHealth;
+        healthBar = GetComponentInChildren<HealthBarBehaviour>();
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth, maxHealth);
+        }
     }
 
     public void TakeDamage(int damageAmount)
     {
-        currentHealth -= damageAmount; // Subtract the damage amount from the current health
+        currentHealth -= damageAmount;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-        // Update the health bar appearance
-        UpdateHealthBar();
-
-        if (currentHealth <= 0)
+        if (healthBar != null)
         {
-            // Player is dead, trigger game over or respawn logic here
+            healthBar.SetHealth(currentHealth, maxHealth);
+        }
+
+        if (currentHealth <= 0f)
+        {
             Die();
         }
     }
 
     private void Die()
     {
-        // Perform any necessary actions when the player dies, such as showing game over screen or respawning
-        // You can also destroy the player object if needed
+        // Call the OnPlayerDeath event
+        OnPlayerDeath?.Invoke();
+
+        // Destroy the player object
         Destroy(gameObject);
     }
-
-    private void UpdateHealthBar()
-    {
-        // Ensure the health bar reference is assigned
-        if (healthBar != null)
-        {
-            // Calculate the health percentage
-            float healthPercentage = (float)currentHealth / maxHealth;
-
-            // Update the health bar with the current health and max health values
-            healthBar.SetHealth(currentHealth, maxHealth);
-        }
-    }
 }
-

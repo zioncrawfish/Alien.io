@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1898874507791618043}
   - component: {fileID: -3036333808801449739}
   - component: {fileID: -3145537171221076765}
-  - component: {fileID: 3462513489544390211}
   - component: {fileID: 7394102243699931682}
+  - component: {fileID: -2705055411278541371}
+  - component: {fileID: -734766097956140918}
   m_Layer: 0
   m_Name: Alien2
   m_TagString: Alien2
@@ -145,21 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f52139cdb4d39347bb6dde876e95def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTag: Player
-  speed: 1
---- !u!114 &3462513489544390211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3302771730716823522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04517f08518939849a01293f574c4763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alienDamagePercentage: 15
+  moveSpeed: 1.7
 --- !u!114 &7394102243699931682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,3 +160,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 2
+  currentHits: 0
+--- !u!50 &-2705055411278541371
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3302771730716823522}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!114 &-734766097956140918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3302771730716823522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f369445a4f784c4688bd84f50122226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 15

@@ -2,33 +2,37 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public string playerTag = "Player";
-    public float speed = 2f; // Adjust the speed value to control the movement speed of enemies
+    public float moveSpeed = 3f;
 
-    private Transform player;
+    private Transform playerTransform;
+    private Rigidbody2D rb;
 
     private void Start()
     {
-        GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
         if (playerObject != null)
         {
-            player = playerObject.transform;
+            playerTransform = playerObject.transform;
         }
+        else
+        {
+            Debug.LogError("Player object not found.");
+        }
+
+        rb = GetComponent<Rigidbody2D>();
+        rb.isKinematic = true; // Set the enemy as kinematic
     }
 
     private void Update()
     {
-        if (player != null)
+        if (playerTransform != null)
         {
-            Vector3 direction = player.position - transform.position;
+            Vector2 directionToPlayer = playerTransform.position - transform.position;
+            transform.up = directionToPlayer.normalized;
 
-            // Move towards the player
-            transform.position += direction.normalized * speed * Time.deltaTime;
-
-            // Face the player
-            Vector2 directionToPlayer = (player.position - transform.position).normalized;
-            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Vector2 movement = transform.up * moveSpeed * Time.deltaTime;
+            rb.MovePosition(rb.position + movement);
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Get the mouse position in the world coordinates
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Calculate the direction from the current position to the target position
@@ -32,4 +31,3 @@ public class PlayerController : MonoBehaviour
         rb.velocity = direction * speed;
     }
 }
-
