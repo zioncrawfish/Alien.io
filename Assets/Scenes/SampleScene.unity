@@ -307,7 +307,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.006838
+  orthographic size: 7.1439304
   m_Depth: -20
   m_CullingMask:
     serializedVersion: 2
@@ -332,7 +332,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 3.5200002, y: 2.1025002, z: 1}
+  m_LocalScale: {x: 5.808, y: 3.1537504, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1427086662}
@@ -428,6 +428,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545470680}
   m_CullTransparentMesh: 1
+--- !u!1 &798187237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 798187238}
+  m_Layer: 0
+  m_Name: BulletSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &798187238
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798187237}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1452352556}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.38, y: 0.39}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &837957558
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,11 +747,14 @@ MonoBehaviour:
   - {fileID: 4440682160276526380, guid: 3c2d3b4b54810f045955352b37fd012a, type: 3}
   - {fileID: 3302771730716823522, guid: a523ca2dd673c764fb2d26c93350b9ef, type: 3}
   - {fileID: 6092426289655867039, guid: 61ccc97a6fd1f7349a345fc3f5611b7d, type: 3}
+  alien2Prefab: {fileID: 3302771730716823522, guid: a523ca2dd673c764fb2d26c93350b9ef, type: 3}
   initialAlienCount: 25
   spawnInterval: 3
   maxAlienCount: 100
   minSpawnDistance: 10
   maxSpawnDistance: 30
+  separationDistance: 10
+  alien2SpawnInterval: 20
 --- !u!1 &1161949944
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,6 +907,7 @@ RectTransform:
   m_Children:
   - {fileID: 1161949945}
   - {fileID: 1948579704}
+  - {fileID: 798187238}
   m_Father: {fileID: 1989539865}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1023,7 +1063,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948579703}
   m_LocalRotation: {x: 0.0043646446, y: -0.009782734, z: 0.99993765, w: 0.0031533495}
-  m_LocalPosition: {x: 0, y: 0, z: -0.76}
+  m_LocalPosition: {x: 0, y: 0, z: -0.761}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1032,7 +1072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 1.123, y: 0.497, z: 179.644}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.03, y: 0.53}
+  m_AnchoredPosition: {x: 2.018, y: 0.487}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1948579705
@@ -1136,7 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6288c91c7d0462c4dac5abef297380f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  movementSpeed: 5
   rotationOffset: 270
 --- !u!212 &1989539862
 SpriteRenderer:
@@ -1312,7 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e942f8d6205a416419b43c26e4989acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimTransform: {fileID: 1989539865}
+  bulletSpawnPosition: {fileID: 798187238}
   muzzleFlash: {fileID: 1948579706}
   muzzleFlashTransform: {fileID: 1948579704}
   tracerPrefab: {fileID: 8394744834071695677, guid: 50f986c805bac774882e984382070bf5, type: 3}

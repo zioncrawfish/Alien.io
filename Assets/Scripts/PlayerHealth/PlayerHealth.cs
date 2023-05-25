@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public UnityAction OnPlayerDeath;
 
     private HealthBarBehaviour healthBar;
+    private EnemyFollow[] enemyFollows;
 
     private void Start()
     {
@@ -18,6 +19,8 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.SetHealth(currentHealth, maxHealth);
         }
+
+        enemyFollows = FindObjectsOfType<EnemyFollow>();
     }
 
     public void TakeDamage(int damageAmount)
@@ -40,6 +43,12 @@ public class PlayerHealth : MonoBehaviour
     {
         // Call the OnPlayerDeath event
         OnPlayerDeath?.Invoke();
+
+        // Notify enemy objects that the player has died
+        foreach (EnemyFollow enemyFollow in enemyFollows)
+        {
+            enemyFollow.SetPlayerAlive(false);
+        }
 
         // Destroy the player object
         Destroy(gameObject);

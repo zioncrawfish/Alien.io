@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;
+    public float movementSpeed = 5f;
     public float rotationOffset = 270f;
 
     private Rigidbody2D rb;
@@ -12,22 +12,37 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
+    {
+        // Handle movement input
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        Vector2 movement = new Vector2(horizontalInput, verticalInput);
+        movement.Normalize();
+
+        // Calculate the movement direction based on WASD input
+        Vector2 moveDirection = new Vector2(horizontalInput, verticalInput);
+
+        // Rotate the player's gun towards the mouse position
+        RotateGunTowardsMouse();
+
+        // Apply movement using Rigidbody2D velocity
+        rb.velocity = moveDirection.normalized * movementSpeed;
+    }
+
+    private void RotateGunTowardsMouse()
     {
         // Get the mouse position in the world coordinates
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Calculate the direction from the current position to the target position
+        // Calculate the direction from the player to the mouse position
         Vector2 direction = mousePosition - rb.position;
 
-        // Normalize the direction vector to ensure constant speed
-        direction.Normalize();
-
-        // Rotate the player towards the mouse position
+        // Calculate the angle in degrees
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        rb.rotation = angle + rotationOffset;
 
-        // Apply movement using Rigidbody2D velocity
-        rb.velocity = direction * speed;
+        // Apply the rotation to the gun
+        transform.rotation = Quaternion.Euler(0f, 0f, angle + rotationOffset);
     }
 }

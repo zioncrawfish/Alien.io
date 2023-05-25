@@ -6,21 +6,23 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] alienPrefabs;
+    public GameObject alien2Prefab;
 
-    public int initialAlienCount = 25;
-    public float spawnInterval = 3f;
-    public int maxAlienCount = 100;
-    public float minSpawnDistance = 10f;
-    public float maxSpawnDistance = 30f;
+    public int initialAlienCount = 60;
+    public float spawnInterval = 1f;
+    public int maxAlienCount = 175;
+    public float minSpawnDistance = 50f;
+    public float maxSpawnDistance = 150f;
+    public float separationDistance = 10f;
+    public int alien2SpawnInterval = 20;
 
-    private Camera mainCamera;
     private Transform playerTransform;
     private List<GameObject> activeAliens = new List<GameObject>();
+    private int alienCounter = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        mainCamera = Camera.main;
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         SpawnInitialAliens();
@@ -31,7 +33,15 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < initialAlienCount; i++)
         {
-            SpawnAlien();
+            if (alienCounter < alien2SpawnInterval)
+            {
+                SpawnAlien(alienPrefabs);
+            }
+            else
+            {
+                SpawnAlien(alien2Prefab);
+                alienCounter = 0;
+            }
         }
     }
 
@@ -43,18 +53,36 @@ public class EnemySpawner : MonoBehaviour
 
             if (activeAliens.Count < maxAlienCount)
             {
-                SpawnAlien();
+                if (alienCounter < alien2SpawnInterval)
+                {
+                    SpawnAlien(alienPrefabs);
+                }
+                else
+                {
+                    SpawnAlien(alien2Prefab);
+                    alienCounter = 0;
+                }
             }
         }
     }
 
-    private void SpawnAlien()
+    private void SpawnAlien(GameObject[] prefabs)
     {
         Vector2 spawnPosition = GetRandomSpawnPosition();
-        GameObject alienPrefab = GetRandomAlienPrefab();
+        GameObject alienPrefab = GetRandomAlienPrefab(prefabs);
 
         GameObject alienInstance = Instantiate(alienPrefab, spawnPosition, Quaternion.identity);
         activeAliens.Add(alienInstance);
+        alienCounter++;
+    }
+
+    private void SpawnAlien(GameObject prefab)
+    {
+        Vector2 spawnPosition = GetRandomSpawnPosition();
+
+        GameObject alienInstance = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        activeAliens.Add(alienInstance);
+        alienCounter++;
     }
 
     private Vector2 GetRandomSpawnPosition()
@@ -66,16 +94,19 @@ public class EnemySpawner : MonoBehaviour
         }
 
         Vector2 playerPosition = playerTransform.position;
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        float randomAngle = Random.Range(0f, 2f * Mathf.PI);
         float randomDistance = Random.Range(minSpawnDistance, maxSpawnDistance);
-        Vector2 spawnPosition = playerPosition + randomDirection * randomDistance;
+
+        Vector2 spawnOffset = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle)) * randomDistance;
+        Vector2 spawnPosition = playerPosition + spawnOffset;
 
         return spawnPosition;
     }
 
-    private GameObject GetRandomAlienPrefab()
+    private GameObject GetRandomAlienPrefab(GameObject[] prefabs)
     {
-        int randomIndex = Random.Range(0, alienPrefabs.Length);
-        return alienPrefabs[randomIndex];
+        int randomIndex = Random.Range(0, prefabs.Length);
+        return prefabs[randomIndex];
     }
 }
+
