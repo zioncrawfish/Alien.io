@@ -9,6 +9,7 @@ TagManager:
   - Alien2
   - Alien3
   - Bullet
+  - Laser
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     private Transform playerTransform;
     private List<GameObject> activeAliens = new List<GameObject>();
     private int alienCounter = 0;
+    private int alien2Counter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 SpawnAlien(alien2Prefab);
                 alienCounter = 0;
+                alien2Counter++;
             }
         }
     }
@@ -61,6 +63,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     SpawnAlien(alien2Prefab);
                     alienCounter = 0;
+                    alien2Counter++;
                 }
             }
         }
@@ -109,4 +112,3 @@ public class EnemySpawner : MonoBehaviour
         return prefabs[randomIndex];
     }
 }
-

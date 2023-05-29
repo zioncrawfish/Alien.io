@@ -8,14 +8,11 @@ public class ShooterFollow : MonoBehaviour
     public float nearDistance;
     public float minTimeBtwShots;
     public float maxTimeBtwShots;
-    public float laserSpeed;
     public int maxShots = 3; // Maximum number of shots to fire
     public float cooldownTime = 1f; // Cooldown time between shots
-    public float laserLifetime = 2f; // Lifetime of the laser
 
     [Header("References")]
     public GameObject laserPrefab;
-    public Transform muzzlePosition;
     public Transform laserSpawn;
     public EnemyMuzzleFlash muzzleFlash;
 
@@ -45,22 +42,20 @@ public class ShooterFollow : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, speed * Time.deltaTime);
         }
 
-        Vector3 directionToPlayer = playerTransform.position - transform.position;
+        Vector2 directionToPlayer = playerTransform.position - transform.position;
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         if (cooldownTimer <= 0f && shotsFired < maxShots) // Check if cooldown time has passed and shots fired is less than the maximum allowed
         {
-            RaycastHit2D hit = Physics2D.Raycast(laserSpawn.position, transform.right, Mathf.Infinity, ~LayerMask.GetMask("Alien"));
+            RaycastHit2D hit = Physics2D.Raycast(laserSpawn.position, transform.right, Mathf.Infinity, LayerMask.GetMask("Default"));
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
-                GameObject laser = Instantiate(laserPrefab, laserSpawn.position, Quaternion.Euler(0f, 0f, -90f));
-                Rigidbody2D laserRigidbody = laser.GetComponent<Rigidbody2D>();
-                laserRigidbody.velocity = transform.right * laserSpeed;
+                GameObject laser = Instantiate(laserPrefab, laserSpawn.position, Quaternion.identity);
+                Laser laserScript = laser.GetComponent<Laser>();
+                laserScript.SetVelocity(transform.right);
 
                 muzzleFlash.PlayMuzzleFlash();
-
-                Destroy(laser, laserLifetime); // Destroy the laser after the specified lifetime
 
                 shotsFired++; // Increment shots fired counter
                 cooldownTimer = cooldownTime; // Start cooldown timer
@@ -77,4 +72,3 @@ public class ShooterFollow : MonoBehaviour
         }
     }
 }
-

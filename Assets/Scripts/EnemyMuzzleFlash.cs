@@ -21,4 +21,3 @@ public class EnemyMuzzleFlash : MonoBehaviour
         flashSprite.SetActive(false);
     }
 }
-

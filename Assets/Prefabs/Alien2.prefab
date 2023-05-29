@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7373603145800410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.673, y: 0.023, z: 0}
+  m_LocalPosition: {x: 0.579, y: -0.008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -238,12 +238,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   stoppingDistance: 6
-  nearDistance: 3
+  nearDistance: 5
   minTimeBtwShots: 5
-  maxTimeBtwShots: 10
-  laserSpeed: 15
-  maxShots: 3
-  cooldownTime: 5
+  maxTimeBtwShots: 5
+  maxShots: 1
+  cooldownTime: 3
   laserPrefab: {fileID: 5148331017940770138, guid: 8b2c4cca62c8b984585b4f3efc42da08, type: 3}
   muzzlePosition: {fileID: 8759152461435254295}
   laserSpawn: {fileID: 5159339424944594471}
