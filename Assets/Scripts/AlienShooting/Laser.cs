@@ -15,6 +15,13 @@ public class Laser : MonoBehaviour
 
     public void SetVelocity(Vector2 direction)
     {
-        rb.velocity = direction.normalized * speed;
+        if (rb != null)
+        {
+            rb.velocity = direction.normalized * speed;
+        }
+        else
+        {
+            Debug.LogWarning("Rigidbody2D component not found on the laser object.");
+        }
     }
 }

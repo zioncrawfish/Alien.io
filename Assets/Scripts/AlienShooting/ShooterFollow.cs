@@ -53,7 +53,14 @@ public class ShooterFollow : MonoBehaviour
             {
                 GameObject laser = Instantiate(laserPrefab, laserSpawn.position, Quaternion.identity);
                 Laser laserScript = laser.GetComponent<Laser>();
-                laserScript.SetVelocity(transform.right);
+                if (laserScript != null)
+                {
+                    laserScript.SetVelocity(transform.right);
+                }
+                else
+                {
+                    Debug.LogWarning("Laser script not found on the laser prefab.");
+                }
 
                 muzzleFlash.PlayMuzzleFlash();
 
